@@ -1,0 +1,15 @@
+name: SellChest
+version: 1.0.0
+main: net.tonimatasdev.sellchest.SellChest
+api-version: 1.19
+authors: [TonimatasDEV]
+description: Sell chest
+
+commands:
+  sellchest:
+    permission: sellchest.admin
+    description: Primary command of SellChest plugin.
+
+permissions:
+  sellchest.admin:
+    description: Admin permission for SellChest.
