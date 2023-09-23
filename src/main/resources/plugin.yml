@@ -11,5 +11,10 @@ commands:
     description: Primary command of SellChest plugin.
 
 permissions:
-  sellchest.admin:
-    description: Admin permission for SellChest.
+  sellchest.*:
+    description: All permissions of SellChest
+    children:
+      - sellchest.version
+
+  sellchest.version:
+    description: Show the plugin version.

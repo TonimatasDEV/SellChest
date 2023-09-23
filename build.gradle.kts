@@ -12,13 +12,11 @@ version = pluginVersion
 repositories {
     mavenCentral()
     maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-
     maven(url = "https://oss.sonatype.org/content/groups/public/")
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
-    compileOnly("org.jetbrains:annotations:24.0.1")
+    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
 }
 
 tasks.withType<ProcessResources> {
