@@ -1,11 +1,9 @@
 package net.tonimatasdev.sellchest;
 
-import net.tonimatasdev.sellchest.command.SellChestCommand;
-import net.tonimatasdev.sellchest.listener.BlockPlaceListener;
-import net.tonimatasdev.sellchest.upgrade.Tier;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Objects;
+import net.tonimatasdev.sellchest.command.SellChestCommand;
+import net.tonimatasdev.sellchest.listener.BlockPlaceListener;
 
 public final class SellChest extends JavaPlugin {
     private static SellChest instance;
@@ -16,8 +14,8 @@ public final class SellChest extends JavaPlugin {
         saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
 
-        Objects.requireNonNull(getCommand("sellchest")).setExecutor(new SellChestCommand());
-        Objects.requireNonNull(getCommand("sellchest")).setTabCompleter(new SellChestCommand());
+        getCommand("sellchest").setExecutor(new SellChestCommand());
+        getCommand("sellchest").setTabCompleter(new SellChestCommand());
     }
 
     @Override

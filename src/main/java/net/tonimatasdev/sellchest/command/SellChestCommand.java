@@ -1,39 +1,54 @@
 package net.tonimatasdev.sellchest.command;
 
-import net.tonimatasdev.sellchest.upgrade.Tier;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import net.tonimatasdev.sellchest.SellChest;
 
 public class SellChestCommand implements CommandExecutor, TabCompleter {
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        if (args[0].equalsIgnoreCase("reload")) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args[0].equalsIgnoreCase("reload") && hasPermission(sender, "sellchest.reload")) {
             sender.sendMessage("Reloaded");
         }
 
+        if (args[0].equalsIgnoreCase("version") && hasPermission(sender, "sellchest.version")) {
+            sender.sendMessage(getPrefix(ChatColor.DARK_GREEN) + "The plugin version is: " + SellChest.getInstance().getDescription().getVersion());
+        }
 
         if (args[0].equals("give")) {
-            if (Arrays.asList(Tier.values()).contains(Tier.getTier(args[1]))) {
 
-            }
+
+            //Tier.valueOf(args[1]);
         }
 
         return true;
     }
 
+    private boolean hasPermission(CommandSender sender, String permission) {
+        if (sender.hasPermission(permission)) {
+            return true;
+        } else {
+            sender.sendMessage(getPrefix(ChatColor.DARK_RED) + "You don't have permissions for execute this command");
+            return false;
+        }
+    }
 
-    @Nullable
+    // Method to get the prefix with the colors.
+    private String getPrefix(ChatColor chatColor) {
+        return ChatColor.WHITE + "[" + chatColor + "+" + ChatColor.WHITE + "] SellChest: " + ChatColor.WHITE;
+    }
+
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> argList = new ArrayList<>();
 
         if (command.getName().equalsIgnoreCase("sellchest")) {
@@ -44,7 +59,7 @@ public class SellChestCommand implements CommandExecutor, TabCompleter {
             }
 
             if (args.length == 2 && args[0].equalsIgnoreCase("give")) {
-                argList.addAll(Arrays.stream(Tier.values()).map(Tier::name).toList());
+                //argList.addAll(Arrays.stream(Tier.values()).map(Tier::name).collect(Collectors.toList()));
                 return argList;
             }
 
@@ -54,7 +69,7 @@ public class SellChestCommand implements CommandExecutor, TabCompleter {
             }
 
             if (args.length == 4 && args[0].equalsIgnoreCase("give")) {
-                argList.addAll(sender.getServer().getOnlinePlayers().stream().map(Player::getName).toList());
+                argList.addAll(sender.getServer().getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()));
                 return argList;
             }
         }
