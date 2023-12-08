@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import net.tonimatasdev.sellchest.util.Messages;
+import net.tonimatasdev.sellchest.util.NBTUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,6 +15,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import net.tonimatasdev.sellchest.SellChest;
+import org.bukkit.inventory.ItemStack;
 
 public class SellChestCommand implements CommandExecutor, TabCompleter {
     @Override
@@ -21,10 +25,16 @@ public class SellChestCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args[0].equalsIgnoreCase("version") && hasPermission(sender, "sellchest.version")) {
-            sender.sendMessage(getPrefix(ChatColor.DARK_GREEN) + "The plugin version is: " + SellChest.getInstance().getDescription().getVersion());
+            sender.sendMessage(Messages.getPrefix(ChatColor.DARK_GREEN) + "The plugin version is: " + SellChest.getInstance().getDescription().getVersion());
         }
 
         if (args[0].equals("give")) {
+            ItemStack itemStack = new ItemStack(Material.CHEST);
+            NBTUtils.setItemNbtTag(itemStack, "sellchest", "true"); // TODO: Change true to tier
+            if (sender instanceof Player player) {
+                player.sendMessage("Things");
+                player.getInventory().addItem(itemStack);
+            }
 
 
             //Tier.valueOf(args[1]);
@@ -37,15 +47,11 @@ public class SellChestCommand implements CommandExecutor, TabCompleter {
         if (sender.hasPermission(permission)) {
             return true;
         } else {
-            sender.sendMessage(getPrefix(ChatColor.DARK_RED) + "You don't have permissions for execute this command");
+            sender.sendMessage(Messages.getPrefix(ChatColor.DARK_RED) + "You don't have permissions for execute this command");
             return false;
         }
     }
 
-    // Method to get the prefix with the colors.
-    private String getPrefix(ChatColor chatColor) {
-        return ChatColor.WHITE + "[" + chatColor + "+" + ChatColor.WHITE + "] SellChest: " + ChatColor.WHITE;
-    }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {

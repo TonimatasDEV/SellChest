@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
+    implementation("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
     libs("com.google.code.gson:gson:2.10.1")
     libs.dependencies.map { implementation(it) }
 }

@@ -3,7 +3,7 @@ package net.tonimatasdev.sellchest;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.tonimatasdev.sellchest.command.SellChestCommand;
-import net.tonimatasdev.sellchest.listener.BlockPlaceListener;
+import net.tonimatasdev.sellchest.listener.ChestListener;
 
 public final class SellChest extends JavaPlugin {
     private static SellChest instance;
@@ -12,7 +12,7 @@ public final class SellChest extends JavaPlugin {
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
-        getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        getServer().getPluginManager().registerEvents(new ChestListener(), this);
 
         getCommand("sellchest").setExecutor(new SellChestCommand());
         getCommand("sellchest").setTabCompleter(new SellChestCommand());

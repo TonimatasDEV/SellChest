@@ -8,7 +8,7 @@ import org.bukkit.Material;
 
 public class Tier {
     private String name;
-    private Material voidMaterial;
+    private Material chestType;
     private List<Integer> sellSlots;
 
     // Sell item
@@ -21,11 +21,10 @@ public class Tier {
     // Auto sell instant
     // Accept hopper items (boolean)
 
-    public Tier(String name, Material voidMaterial, String sellSlots) {
+    public Tier(String name, Material chestType) {
         this.name = name;
-        this.voidMaterial = voidMaterial;
-        this.sellSlots = Arrays.stream(sellSlots.split(",")).map((Integer::parseInt)).collect(Collectors.toList());
-
+        this.chestType = chestType;
+        //this.sellSlots = Arrays.stream(sellSlots.split(",")).map((Integer::parseInt)).collect(Collectors.toList());
 
         TierManager.tiers.add(this);
     }
