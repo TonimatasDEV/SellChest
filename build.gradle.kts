@@ -6,6 +6,8 @@ plugins {
 
 val pluginVersion: String by extra
 
+val libs: Configuration by configurations.creating
+
 group = "net.tonimatasdev"
 version = pluginVersion
 
@@ -16,7 +18,13 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
+    implementation("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
+    libs("com.google.code.gson:gson:2.10.1")
+    libs.dependencies.map { implementation(it) }
+}
+
+tasks.withType<Jar> {
+    from(libs.map { if (it.isDirectory) it else zipTree(it) })
 }
 
 tasks.withType<ProcessResources> {
